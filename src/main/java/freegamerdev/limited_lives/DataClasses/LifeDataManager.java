@@ -15,7 +15,7 @@ public class LifeDataManager {
     private static final Type LIFE_DATA_TYPE = new TypeToken<LifeData>() {}.getType();
     private static final Path LIFE_DATA_FILE = Paths.get("config/limitedlives/playtime_data.json");
 
-    public static LifeData loadPlaytimeData() throws IOException {
+    public static LifeData loadLifeData() throws IOException {
         if (Files.exists(LIFE_DATA_FILE)) {
             String jsonData = Files.readString(LIFE_DATA_FILE);
             return gson.fromJson(jsonData, LIFE_DATA_TYPE);
