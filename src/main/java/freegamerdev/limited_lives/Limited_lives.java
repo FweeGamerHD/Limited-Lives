@@ -6,6 +6,9 @@ import freegamerdev.limited_lives.DataClasses.LifeData;
 import freegamerdev.limited_lives.DataClasses.LifeDataManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.loader.api.FabricLoader;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
@@ -19,6 +22,8 @@ public class Limited_lives implements ModInitializer {
     private String LIVES_LEFT_TEXT = "Lives left: %l";
     private String NO_RESPAWNS_LEFT_MESSAGE = "You have no more respawns left! What a shame...";
 
+    private boolean luckperms = false;
+
     @Override
     public void onInitialize() {
         try {
@@ -29,6 +34,11 @@ public class Limited_lives implements ModInitializer {
             NO_RESPAWNS_LEFT_MESSAGE = configData.getNoRespawnsLeftMessage();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        // Check if LuckPerms is loaded
+        if (FabricLoader.getInstance().isModLoaded("luckperms")) {
+            luckperms = true;
         }
 
         // Register the event listener for player respawn
@@ -42,6 +52,9 @@ public class Limited_lives implements ModInitializer {
         }
 
         if (!alive) {
+            if (luckperms && hasPermission(newPlayer)) {
+                return;
+            }
             int playerDeaths = lifeData.getDeathsFromPlayer(newPlayer.getUuid().toString());
 
             if (playerDeaths < MAX_LIVES) {
@@ -60,5 +73,14 @@ public class Limited_lives implements ModInitializer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean hasPermission(ServerPlayerEntity player) {
+        User user = LuckPermsProvider.get().getUserManager().getUser(player.getUuid());
+        if (user == null) {
+            throw new RuntimeException("User not found in LuckPerms");
+        }
+
+        return user.getCachedData().getPermissionData().checkPermission("limitedlives.bypass").asBoolean();
     }
 }
