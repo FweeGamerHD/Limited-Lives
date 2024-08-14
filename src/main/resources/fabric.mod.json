@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "limited_lives",
+  "version": "${version}",
+  "name": "Limited Lives",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "freegamerdev.limited_lives.Limited_lives"
+    ]
+  },
+  "mixins": [
+    "limited_lives.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "suggests": {
+    "luckperms": "^5.4"
+  }
+}
