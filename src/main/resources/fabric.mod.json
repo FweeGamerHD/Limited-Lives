@@ -3,9 +3,14 @@
   "id": "limited_lives",
   "version": "${version}",
   "name": "Limited Lives",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "description": "A fabric mod for Minecraft that counts the amount of times a player has died and puts them into spectator mode once they hit the limit.",
+  "icon": "assets/ProjIcon.png",
+  "authors": [
+    "FreeGamerDev"
+  ],
+  "contact": {
+    "sources": "https://github.com/FweeGamerHD/Limited-Lives"
+  },
   "license": "CC-BY-NC-SA-4.0",
   "environment": "server",
   "entrypoints": {
