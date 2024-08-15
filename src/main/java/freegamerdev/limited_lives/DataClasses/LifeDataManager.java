@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class LifeDataManager {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final Type LIFE_DATA_TYPE = new TypeToken<LifeData>() {}.getType();
-    private static final Path LIFE_DATA_FILE = Paths.get("config/limitedlives/playtime_data.json");
+    private static final Path LIFE_DATA_FILE = Paths.get("config/limitedlives/lives_data.json");
 
     public static LifeData loadLifeData() throws IOException {
         if (Files.exists(LIFE_DATA_FILE)) {
