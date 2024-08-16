@@ -19,10 +19,10 @@ Downloads on Modrinth are my preferred way of downloading mods, check it out her
 2. **Configuration:**
    - After starting the server with the mod installed, a configuration file (`config.json`) will be created in the `config\limitedlives` folder.
    - Edit the configuration file to adjust settings such as the max amount of lives (technically respawns) every player gets and the messages sent in chat to the players.
-   - Note: Use %l to display the amount of lives a player has left in the messages.
+   - Note: Use `%l` to display the amount of lives a player has left in the messages.
 
 3. **Operation:**
-   - The mod will automatically do its thing once a player dies for the first time. (so no data once someone actually dies first)
+   - The mod will automatically do its thing once a player dies for the first time. (so no data until someone actually dies first)
    - Players will see their remaining lives in the chat every time they respawn.
    - Once a player runs out of lives, they will be put into spectator mode and will not be able to respawn anymore.
 
