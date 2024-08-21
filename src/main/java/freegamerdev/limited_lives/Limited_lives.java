@@ -26,16 +26,6 @@ public class Limited_lives implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        try {
-            lifeData = LifeDataManager.loadLifeData();
-            ConfigData configData = ConfigDataManager.loadConfigData();
-            MAX_LIVES = configData.getMaxLives() - 1;
-            LIVES_LEFT_TEXT = configData.getLivesLeftText();
-            NO_RESPAWNS_LEFT_MESSAGE = configData.getNoRespawnsLeftMessage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         // Check if LuckPerms is loaded
         if (FabricLoader.getInstance().isModLoaded("luckperms")) {
             luckperms = true;
@@ -47,6 +37,16 @@ public class Limited_lives implements ModInitializer {
 
     // This method runs every time a player respawns on the server
     private void onPlayerRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
+        try {
+            lifeData = LifeDataManager.loadLifeData();
+            ConfigData configData = ConfigDataManager.loadConfigData();
+            MAX_LIVES = configData.getMaxLives() - 1;
+            LIVES_LEFT_TEXT = configData.getLivesLeftText();
+            NO_RESPAWNS_LEFT_MESSAGE = configData.getNoRespawnsLeftMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         if (!lifeData.getPlayerDeaths().containsKey(newPlayer.getUuid().toString())) {
             lifeData.addPlayer(newPlayer.getUuid().toString(), 0);
         }
